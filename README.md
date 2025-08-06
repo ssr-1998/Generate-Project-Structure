@@ -1,16 +1,16 @@
 # 📁 Generate Project Structure
 
-This Python script helps you automatically generate a beautiful, Markdown-friendly project folder structure. It's perfect for documenting your project's layout in `README.md` files — with icons for folders 📁 and files 📄, and support for excluding specific items.
+A simple Python script to automatically generate a beautiful, Markdown-friendly project folder structure — complete with folder 📁 and file 📄 icons. It prints the structure to your terminal and also creates a `project_structure.txt` file automatically.
 
 ---
 
 ## 🚀 Features
 
-- Recursively scans any folder structure
-- Outputs a clean, readable tree format
+- Recursively scans your project directory
 - Uses 📁 for folders and 📄 for files
-- Allows skipping specified folders and files (e.g., `__pycache__`, `.git`, `node_modules`, etc.)
-- Ideal for use in project documentation
+- Automatically excludes common unnecessary files and folders (like `.git`, `__pycache__`, `.ipynb_checkpoints`, etc.)
+- Saves output to `project_structure.txt` in UTF-8 format
+- Great for documenting your project in a `README.md`
 
 ---
 
@@ -32,26 +32,46 @@ cd Generate-Project-Structure
 
 ---
 
-## ⚙️ Usage
+## ▶️ Usage
 
-Run the script inside the root of your project folder:
+### ✅ Running in the Current Directory
 
-```bash
-python main.py
-```
-
-This will output the project structure in your terminal window.
-
-If you want to save the output to a file (e.g., to paste into your README.md), use:
+Navigate to your project folder in the terminal and run
 
 ```bash
-python main.py > structure.txt
+python PATH_TO_generate_project_structure.py
 ```
 
-❓ What's the difference?
-- `python main.py`: Displays the project structure directly in the terminal window.
+For Example:
 
-- `python main.py > structure.txt`: Redirects the output to a file named structure.txt, which is useful for copy-pasting into your documentation or saving for later.
+```bash
+python C:\path\to\generate_project_structure\main.py
+```
+
+This will:
+- Print the folder structure of the current working directory (the folder you're in when you run the command)
+- Create `project_structure.txt` in the same folder.
+
+### 🧭 Running from a Different Project Directory
+
+You can use the same script to generate a structure for any project, even if the script itself is stored elsewhere.
+
+- Open terminal inside the target project directory.
+
+- Run:
+
+   ```bash
+   python PATH_TO_generate_project_structure.py
+   ```
+
+   For Example:
+
+   ```bash
+   cd C:\Projects\MyTargetProject
+   python C:\Tools\generate-project-structure\main.py
+   ```
+
+   This will generate the structure for MyTargetProject.
 
 ---
 
@@ -78,6 +98,20 @@ ROOT_DIR = os.path.abspath(".")  # Change this to target a different Directory
 
 EXCLUDE = {"__pycache__", ".git", ".vscode", "venv"}  # Add/Remove excluded Folders or Files
 ```
+
+---
+
+## 🧠 Why We Use `with open(...)` Instead of `> file.txt`
+
+While you could redirect output to a file using:
+
+```bash
+python main.py > project_structure.txt
+```
+
+This approach causes issues on Windows terminals because they often don't support Unicode (like emoji icons) correctly when using redirection (`>`), leading to garbled output.
+
+Instead, this script uses Python’s built-in `open(..., encoding="utf-8")` to reliably write the output in the correct encoding, so the structure file is clean, portable, and emoji-compatible across platforms and editors.
 
 ---
 

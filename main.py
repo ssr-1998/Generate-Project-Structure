@@ -1,11 +1,12 @@
 import os
 
 # ✅ Configuration Section
+
 # Set the directory to scan
-ROOT_DIR = os.path.abspath(".")  # Or provide a path like "C:/Users/you/projects/myproj"
+ROOT_DIR = os.path.abspath(".")
 
 # Skip these folders and files
-EXCLUDE = {"__pycache__", ".git", ".vscode", ".DS_Store", "venv", "node_modules"}
+EXCLUDE = {"__pycache__", ".git", ".vscode", ".DS_Store", ".venv", "node_modules", ".ipynb_checkpoints"}
 
 FOLDER_ICON = "📁"
 FILE_ICON = "📄"
@@ -30,6 +31,10 @@ def main():
     project_name = os.path.basename(ROOT_DIR)
     print(f"{FOLDER_ICON} {project_name}")
     print(generate_tree(ROOT_DIR))
+    output = f"{FOLDER_ICON} {project_name}\n" + generate_tree(ROOT_DIR)
+
+    with open("project_structure.txt", "w", encoding="utf-8") as f:
+        f.write(output)
 
 if __name__ == "__main__":
     main()
